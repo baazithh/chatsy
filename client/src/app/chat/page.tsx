@@ -24,13 +24,15 @@ export default function ChatPage() {
   }, [user]);
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-violet-50 dark:from-gray-950 dark:to-indigo-950 -z-10" />
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-fuchsia-300/30 rounded-full blur-[120px] -z-10 animate-pulse mix-blend-multiply dark:mix-blend-lighten" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-400/20 rounded-full blur-[120px] -z-10 mix-blend-multiply dark:mix-blend-lighten" />
+    <main className="min-h-screen relative flex flex-col pt-24">
+      {/* HUD Background Elements */}
+      <div className="fixed inset-0 pointer-events-none -z-10 bg-[#05050a]" />
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.15)_0%,transparent_70%)] pointer-events-none -z-10" />
       
       <NavBar />
-      <ChatInterface interests={interests} />
+      <div className="relative z-10 flex-1">
+        <ChatInterface interests={interests} />
+      </div>
     </main>
   );
 }

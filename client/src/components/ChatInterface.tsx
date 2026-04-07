@@ -132,10 +132,18 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
       </div>
 
       {/* Messages */}
-      <div className="flex-1 holographic-panel mb-4 p-6 overflow-y-auto flex flex-col gap-5 relative">
+      <div className="flex-1 holographic-panel scanlines mb-4 p-6 overflow-y-auto flex flex-col gap-5 relative">
+        <div className="scanner-line" />
+        
         {!roomId && (
-          <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-10 pointer-events-none">
-             <Activity className="w-64 h-64 text-cyan-500 animate-pulse" />
+          <div className="absolute inset-0 flex items-center justify-center -z-0 pointer-events-none overflow-hidden">
+             <div className="radar-circle" style={{ animationDelay: '0s' }} />
+             <div className="radar-circle" style={{ animationDelay: '1s' }} />
+             <div className="radar-circle" style={{ animationDelay: '2s' }} />
+             <Activity className="w-24 h-24 text-cyan-500/30 animate-pulse relative z-10" />
+             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-cyan-400/40 text-[10px] font-mono tracking-[0.5em] uppercase">
+                Scanning Frequencies...
+             </div>
           </div>
         )}
         
