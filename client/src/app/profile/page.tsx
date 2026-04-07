@@ -59,10 +59,11 @@ export default function ProfilePage() {
   if (authLoading || !user) return null;
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col perspective-container">
+    <main className="min-h-screen relative flex flex-col pt-24 pb-12">
+      <div className="fixed inset-0 -z-10 bg-[#05050a]" />
       <NavBar />
       
-      <div className="max-w-4xl mx-auto w-full p-6 relative z-10 hover-3d">
+      <div className="max-w-4xl mx-auto w-full px-6 relative z-10 hover-3d">
         <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">Your Profile</h1>
         
         <div className="holographic-panel p-8 space-y-8 border border-cyan-500/20">
