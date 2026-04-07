@@ -12,20 +12,20 @@ export default function Home() {
         <div className="space-y-4 flex flex-col items-center">
           <Activity size={48} className="text-cyan-400 animate-pulse mb-2" />
           <h1 className="text-6xl font-black neon-text-cyan tracking-tighter pb-2">
-            CHATSY_OS
+            Chatsy
           </h1>
           <p className="text-xl text-gray-400 max-w-md mx-auto font-light tracking-wide">
-            INITIATE CONNECTION. <br/> SYNC INTERESTS. BYPASS FIREWALLS.
+            Connect instantly and chat with strangers based on your interests.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
           <Link href="/chat" className="px-8 py-4 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 rounded-lg font-bold hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping block" />
-            Connect To Grid
+            Start Chatting
           </Link>
           <Link href="/profile" className="px-8 py-4 bg-white/5 text-gray-300 border border-white/10 rounded-lg font-bold hover:bg-white/10 hover:border-white/30 transition-all uppercase tracking-widest">
-            Establish Identity
+            Create Profile
           </Link>
         </div>
       </div>

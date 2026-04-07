@@ -28,11 +28,6 @@ export default function AuthPage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container">
-      <div className="text-cyan-500/20 absolute top-10 pointer-events-none font-mono text-xs text-center w-full">
-         <p>SECURE TERMINAL CONNECTION</p>
-         <p>ENCRYPTION: AES-256 ACTIVE</p>
-      </div>
-
       <div className="holographic-panel hover-3d p-12 max-w-md w-full relative z-10 border border-cyan-500/30">
         <div className="flex justify-center mb-6">
            <div className="w-16 h-16 border-2 border-cyan-400 rounded-lg flex items-center justify-center rotate-45">
@@ -41,15 +36,15 @@ export default function AuthPage() {
         </div>
 
         <h1 className="text-3xl font-black neon-text-cyan mb-8 text-center uppercase tracking-widest">
-          {isLogin ? 'AUTHORIZE ACCESS' : 'ESTABLISH LINK'}
+          {isLogin ? 'Login to Chatsy' : 'Register'}
         </h1>
         
         <form onSubmit={handleAuth} className="flex flex-col gap-6">
           <div>
-            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">IDENTIFIER_KEY</label>
+            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">Email Address</label>
             <input 
               type="email" 
-              placeholder="operator@sys.com" 
+              placeholder="you@example.com" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-4 holographic-panel glass-input font-mono text-sm uppercase"
@@ -57,7 +52,7 @@ export default function AuthPage() {
             />
           </div>
           <div>
-            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">SECURITY_PHRASE</label>
+            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">Password</label>
             <input 
               type="password" 
               placeholder="••••••••" 
@@ -78,17 +73,17 @@ export default function AuthPage() {
             type="submit" 
             className="mt-4 w-full py-4 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 rounded-lg font-bold hover:bg-cyan-500/40 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all uppercase tracking-widest"
           >
-            {isLogin ? 'EXECUTE LOGIN' : 'CREATE NODE'}
+            {isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
 
         <p className="mt-8 text-center text-gray-500 font-mono text-xs uppercase">
-          {isLogin ? "NO ACCESS CODE? " : "EXISTING OPERATOR? "}
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button 
             onClick={() => setIsLogin(!isLogin)} 
             className="text-cyan-400 hover:neon-text-cyan font-bold"
           >
-            {isLogin ? 'REGISTER HERE' : 'LOGIN HERE'}
+            {isLogin ? 'Register Here' : 'Login Here'}
           </button>
         </p>
       </div>

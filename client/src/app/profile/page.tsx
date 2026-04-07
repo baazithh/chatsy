@@ -63,23 +63,23 @@ export default function ProfilePage() {
       <NavBar />
       
       <div className="max-w-4xl mx-auto w-full p-6 relative z-10 hover-3d">
-        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">OPERATOR IDENTITY</h1>
+        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">Your Profile</h1>
         
         <div className="holographic-panel p-8 space-y-8 border border-cyan-500/20">
           
           <div>
-            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">Public Handle</label>
+            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">Display Name</label>
             <input 
               type="text" 
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               className="w-full p-4 holographic-panel glass-input font-bold tracking-wider"
-              placeholder="SYSTEM_ALIAS"
+              placeholder="Your Alias"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">MATCHING DIRECTIVES (INTERESTS)</label>
+            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">Your Interests</label>
             <div className="flex gap-4 mb-4">
               <input 
                 type="text"
@@ -92,20 +92,20 @@ export default function ProfilePage() {
                   }
                 }}
                 className="flex-1 p-3 holographic-panel glass-input uppercase font-mono text-sm tracking-widest"
-                placeholder="ADD DIRECTIVE..."
+                placeholder="Add an interest..."
               />
               <button 
                 onClick={addInterest}
                 className="px-8 py-3 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-gray-900 transition-all uppercase"
               >
-                COMPILE
+                Add
               </button>
             </div>
             
             <div className="flex flex-wrap gap-3 mt-6">
               {interests.map(i => (
                 <span key={i} className="px-4 py-2 bg-cyan-900/30 text-cyan-50 font-mono text-xs uppercase tracking-widest border border-cyan-500/40 rounded-sm flex items-center gap-3">
-                  __{i}
+                  {i}
                   <button onClick={() => removeInterest(i)} className="text-cyan-400 hover:text-magenta-400 font-bold">&times;</button>
                 </span>
               ))}
@@ -118,7 +118,7 @@ export default function ProfilePage() {
               disabled={saving}
               className="w-full py-5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 font-black tracking-[0.2em] uppercase hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all disabled:opacity-50"
             >
-              {saving ? 'UPLOADING TO MAINFRAME...' : 'COMMIT CHANGES'}
+              {saving ? 'Saving...' : 'Save Profile'}
             </button>
           </div>
 
