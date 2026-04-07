@@ -63,6 +63,26 @@ io.on('connection', (socket) => {
       }
   });
 
+  socket.on('typing', () => {
+    const roomId = socket.roomId;
+    if (roomId) socket.to(roomId).emit('peer_typing');
+  });
+
+  socket.on('stop_typing', () => {
+    const roomId = socket.roomId;
+    if (roomId) socket.to(roomId).emit('peer_stop_typing');
+  });
+
+  socket.on('send_reaction', (data) => {
+    const roomId = socket.roomId;
+    if (roomId) {
+      socket.to(roomId).emit('receive_reaction', {
+        type: data.type || 'pulse',
+        senderId: socket.id
+      });
+    }
+  });
+
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
     matchingEngine.leaveQueue(socket);
