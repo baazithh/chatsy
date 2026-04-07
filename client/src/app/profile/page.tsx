@@ -60,7 +60,7 @@ export default function ProfilePage() {
 
   return (
     <main className="min-h-screen relative flex flex-col pt-24 pb-12">
-      <div className="fixed inset-0 -z-10 bg-[#f8fafc]" />
+      <div className="fixed inset-0 -z-10 bg-[#0f172a]" />
       <NavBar />
       
       <div className="max-w-4xl mx-auto w-full px-6 relative z-10 hover-3d">
