@@ -35,7 +35,7 @@ export default function FriendsPage() {
             snap.docs.map(async (f) => {
               const fData = f.data();
               const peerDoc = await getDoc(doc(db, 'users', fData.peerUid));
-              let displayName = 'ANONYMOUS_NODE';
+              let displayName = 'Stranger';
               if (peerDoc.exists() && peerDoc.data().displayName) {
                 displayName = peerDoc.data().displayName;
               }
@@ -60,22 +60,22 @@ export default function FriendsPage() {
     <main className="min-h-screen relative overflow-hidden flex flex-col perspective-container">
       <NavBar />
       <div className="max-w-4xl mx-auto w-full p-6 relative z-10">
-        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">SAVED CONNECTIONS</h1>
+        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">Your Friends</h1>
         
         <div className="holographic-panel hover-3d p-8 min-h-[400px] border border-cyan-500/20 shadow-lg">
           {loading ? (
             <div className="flex flex-col items-center justify-center h-full pt-10 text-cyan-500/70 space-y-4">
               <div className="w-12 h-12 border-2 border-dashed border-cyan-500 rounded-full animate-spin" />
-              <p className="font-mono text-sm tracking-widest uppercase">FETCHING NETWORK TOPOLOGY...</p>
+              <p className="font-mono text-sm tracking-widest uppercase">Loading connections...</p>
             </div>
           ) : friends.length === 0 ? (
             <div className="text-center mt-16">
-              <p className="text-cyan-500/80 font-mono text-lg uppercase tracking-widest">NETWORK IS EMPTY</p>
+              <p className="text-cyan-500/80 font-mono text-lg uppercase tracking-widest">You haven't added any friends yet.</p>
               <button 
                 onClick={() => router.push('/chat')}
                 className="mt-8 px-8 py-4 bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 font-bold uppercase tracking-widest hover:bg-cyan-500/30 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]"
               >
-                INITIATE NEW SCAN
+                Start Matching
               </button>
             </div>
           ) : (
@@ -88,11 +88,11 @@ export default function FriendsPage() {
                      </div>
                      <div>
                        <h3 className="font-bold text-lg text-cyan-50 tracking-widest uppercase">{friend.displayName}</h3>
-                       <p className="text-xs text-cyan-500/80 font-mono mt-1">LINK ESTABLISHED</p>
+                       <p className="text-xs text-cyan-500/80 font-mono mt-1">Connected</p>
                      </div>
                   </div>
                   <button className="px-6 py-3 bg-transparent border border-cyan-500/50 text-cyan-400 uppercase font-mono text-xs tracking-[0.2em] hover:bg-cyan-500/20 transition-all">
-                    PULL DATA
+                    Message
                   </button>
                 </div>
               ))}

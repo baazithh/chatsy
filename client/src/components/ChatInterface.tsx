@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { Send, User as UserIcon, SkipForward, UserPlus, ShieldAlert, Cpu } from 'lucide-react';
+import { Send, User as UserIcon, SkipForward, UserPlus, ShieldAlert, Cpu, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@/lib/firebaseConfig';
@@ -12,7 +12,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [input, setInput] = useState('');
-  const [status, setStatus] = useState('SCANNING FREQUENCIES...');
+  const [status, setStatus] = useState('Looking for a match...');
   const [roomId, setRoomId] = useState<string | null>(null);
   const [peerUid, setPeerUid] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     newSocket.on('match_found', (data) => {
       setRoomId(data.roomId);
       setPeerUid(data.peerUid || null);
-      setStatus('CONNECTION SECURED');
+      setStatus('Matched with a stranger!');
       setMessages([]); 
     });
 
@@ -37,10 +37,10 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     });
 
     newSocket.on('peer_disconnected', () => {
-      setStatus('CONNECTION LOST. RE-SCANNING...');
+      setStatus('Stranger disconnected. Finding new match...');
       setRoomId(null);
       setPeerUid(null);
-      setMessages((prev) => [...prev, { type: 'system', text: 'PEER DISCONNECTED' }]);
+      setMessages((prev) => [...prev, { type: 'system', text: 'Stranger Disconnected' }]);
       setTimeout(() => {
         newSocket.emit('join_queue', { interests, uid: user?.uid });
       }, 1000);
@@ -68,7 +68,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
   const handleSkip = () => {
     if (!socket) return;
     socket.emit('skip');
-    setStatus('SCANNING FREQUENCIES...');
+    setStatus('Looking for a match...');
     setRoomId(null);
     setPeerUid(null);
     setMessages([]);
@@ -77,11 +77,11 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
 
   const handleAddFriend = async () => {
     if (!user) {
-      alert("WARNING: LOCAL IDENTITY REQUIRED FOR SAVING CONNECTIONS.");
+      alert("You must be logged in to save friends!");
       return;
     }
     if (!peerUid) {
-      alert("WARNING: PEER IS A GUEST PROTOCOL. CANNOT SAVE.");
+      alert("Stranger is using a guest account and cannot be added as a permanent friend.");
       return;
     }
 
@@ -92,9 +92,9 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
         peerUid: peerUid,
         roomId: roomId
       });
-      alert("NODE SAVED TO NETWORK.");
+      alert("Friend saved to your network!");
     } catch (err) {
-      alert("ERROR: FAILED TO SAVE NODE.");
+      alert("Failed to save friend.");
     }
   };
 
@@ -109,7 +109,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
           </div>
           <div>
             <h2 className={`font-black text-xl uppercase tracking-widest ${roomId ? 'neon-text-cyan' : 'text-gray-400'}`}>
-              {roomId ? 'TARGET ACQUIRED' : 'SIGNAL SEARCH'}
+              {roomId ? 'Stranger' : 'Searching...'}
             </h2>
             <p className="text-xs text-cyan-500/70 uppercase tracking-[0.2em]">{status}</p>
           </div>
@@ -117,14 +117,14 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
         
         {roomId && (
           <div className="flex gap-3">
-            <button onClick={handleAddFriend} className="p-3 rounded-lg bg-cyan-900/40 border border-cyan-500/50 hover:bg-cyan-500/20 text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all" title="Save Node">
+            <button onClick={handleAddFriend} className="p-3 rounded-lg bg-cyan-900/40 border border-cyan-500/50 hover:bg-cyan-500/20 text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all" title="Add Friend">
               <UserPlus size={20} />
             </button>
-            <button className="p-3 rounded-lg bg-magenta-900/40 border border-magenta-500/50 hover:bg-magenta-500/20 text-magenta-400 hover:shadow-[0_0_15px_rgba(217,70,239,0.6)] transition-all" title="Terminate Node">
+            <button className="p-3 rounded-lg bg-magenta-900/40 border border-magenta-500/50 hover:bg-magenta-500/20 text-magenta-400 hover:shadow-[0_0_15px_rgba(217,70,239,0.6)] transition-all" title="Report/Block">
               <ShieldAlert size={20} />
             </button>
             <button onClick={handleSkip} className="px-6 py-2 bg-transparent border-2 border-red-500/50 hover:border-red-500 hover:bg-red-500/20 text-red-500 rounded-lg flex items-center gap-2 font-black tracking-widest uppercase transition-all" title="Skip">
-               JUMP
+               Skip
                <SkipForward size={18} />
             </button>
           </div>
@@ -171,7 +171,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={!roomId}
-          placeholder={roomId ? "TRANSMIT DATA..." : "WAITING FOR UPLINK..."}
+          placeholder={roomId ? "Type a message..." : "Waiting for match..."}
           className="w-full holographic-panel glass-input rounded-xl pl-10 pr-20 py-5 focus:outline-none focus:ring-0 disabled:opacity-50 text-cyan-100 placeholder:text-cyan-800 tracking-widest uppercase font-mono text-sm"
         />
         <button 
@@ -185,5 +185,3 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     </div>
   );
 }
-// Add Activity import manually to fix potential bug
-import { Activity } from 'lucide-react';

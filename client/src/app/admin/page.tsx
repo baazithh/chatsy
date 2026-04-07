@@ -41,19 +41,19 @@ export default function AdminDashboard() {
       <NavBar />
       <div className="max-w-5xl mx-auto w-full p-6 relative z-10 hover-3d">
         <h1 className="text-3xl font-black text-red-500 mb-8 uppercase tracking-widest pl-2 border-l-4 border-red-500 [text-shadow:0_0_10px_rgba(239,68,68,0.6)]">
-          SYS_OVERSEER PROTOCOL
+          Admin Telemetry
         </h1>
 
         <div className="holographic-panel p-10 border border-red-500/30 bg-red-950/10">
           <div className="flex font-mono text-xs text-red-400 mb-8 justify-between border-b border-red-500/20 pb-4">
-             <span className="animate-pulse">LIVE TELEMETRY FEED...</span>
-             <span>AUTHORIZATION: OVERLORD</span>
+             <span className="animate-pulse">Live System Metrics...</span>
+             <span>Admin Authorized</span>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              <div className="p-10 holographic-panel border border-cyan-500/40 bg-cyan-900/10 flex flex-col items-center justify-center text-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.1),transparent)]" />
-                <h2 className="text-sm font-mono font-bold text-cyan-400 uppercase tracking-[0.3em] mb-4">ACTIVE SECTORS</h2>
+                <h2 className="text-sm font-mono font-bold text-cyan-400 uppercase tracking-[0.3em] mb-4">Active Chats</h2>
                 <p className="text-8xl font-black text-white [text-shadow:0_0_20px_rgba(6,182,212,1)] drop-shadow-2xl">
                    {stats.activeChatsCount}
                 </p>
@@ -61,7 +61,7 @@ export default function AdminDashboard() {
 
              <div className="p-10 holographic-panel holographic-panel-magenta border border-magenta-500/40 bg-magenta-900/10 flex flex-col items-center justify-center text-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.1),transparent)]" />
-                <h2 className="text-sm font-mono font-bold text-magenta-400 uppercase tracking-[0.3em] mb-4">NODES IN QUEUE</h2>
+                <h2 className="text-sm font-mono font-bold text-magenta-400 uppercase tracking-[0.3em] mb-4">Users In Queue</h2>
                 <p className="text-8xl font-black text-white [text-shadow:0_0_20px_rgba(217,70,239,1)] drop-shadow-2xl">
                    {stats.queueLength}
                 </p>
