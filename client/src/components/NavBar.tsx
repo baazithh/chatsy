@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, Users, User, Shield } from 'lucide-react';
+import { Activity, Users, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NavBar() {
@@ -11,7 +11,6 @@ export default function NavBar() {
     { name: 'Relay', href: '/chat', icon: Activity },
     { name: 'Network', href: '/friends', icon: Users },
     { name: 'Profile', href: '/profile', icon: User },
-    { name: 'Admin', href: '/admin', icon: Shield, adminOnly: true },
   ];
 
   return (
