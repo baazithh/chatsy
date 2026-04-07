@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #0891b2; /* Slightly deeper Cyan for white bg */
-  --color-primary-dark: #155e75;
-  --color-secondary: #c026d3; /* Slightly deeper Magenta */
-  --color-bg-dark: #f8fafc;
+  --color-primary: #06b6d4; /* Neon Cyan */
+  --color-primary-dark: #0891b2;
+  --color-secondary: #d946ef; /* Neon Magenta */
+  --color-bg-dark: #0f172a; /* Slate Dark Gray */
   
   --font-sans: "Outfit", "Inter", sans-serif;
 }
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #0f172a;
+  --foreground: #ffffff;
 }
 
 body {
@@ -25,14 +25,14 @@ body {
   background-attachment: fixed;
 }
 
-/* Holographic 3D Utilities - Frosted Light */
+/* Holographic 3D Utilities - Dark Gray */
 .holographic-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(30, 41, 59, 0.7); /* Slightly lighter than bg for elevation */
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07),
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
               0 0 20px rgba(6, 182, 212, 0.05),
-              inset 0 0 12px rgba(255, 255, 255, 0.5);
+              inset 0 0 12px rgba(255, 255, 255, 0.03);
   border-radius: 24px;
   position: relative;
   overflow: hidden;
@@ -47,7 +47,7 @@ body {
   z-index: 10;
 }
 
-/* Scanline Effect - Subtle White */
+/* Scanline Effect - Subtle Dark */
 .scanlines {
   position: relative;
   overflow: hidden;
@@ -58,28 +58,28 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 0.1) 50%
+    rgba(15, 23, 42, 0) 50%,
+    rgba(0, 0, 0, 0.15) 50%
   ), linear-gradient(
     90deg,
-    rgba(6, 182, 212, 0.02),
-    rgba(255, 255, 255, 0.01),
-    rgba(217, 70, 239, 0.02)
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
   );
-  background-size: 100% 4px, 4px 100%;
+  background-size: 100% 3px, 3px 100%;
   pointer-events: none;
   z-index: 5;
 }
 
 .holographic-panel-magenta {
-  border-color: rgba(217, 70, 239, 0.3);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07),
+  border-color: rgba(217, 70, 239, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
               0 0 20px rgba(217, 70, 239, 0.05),
-              inset 0 0 12px rgba(255, 255, 255, 0.5);
+              inset 0 0 12px rgba(255, 255, 255, 0.03);
 }
 
 .holographic-panel-magenta::before {
-  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.6), transparent);
 }
 
 /* Radar / Scanning Animation */
@@ -91,7 +91,7 @@ body {
 
 .radar-circle {
   position: absolute;
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  border: 1px solid rgba(6, 182, 212, 0.4);
   border-radius: 50%;
   animation: radar-pulse 3s infinite linear;
 }
@@ -105,36 +105,36 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  height: 150px;
-  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.05), transparent);
-  animation: scan-move 6s infinite linear;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.1), transparent);
+  animation: scan-move 5s infinite linear;
   pointer-events: none;
   z-index: 2;
 }
 
 /* Neon Text Glows */
 .neon-text-cyan {
-  color: #0891b2;
-  text-shadow: 0 0 4px rgba(6, 182, 212, 0.3);
+  color: #06b6d4;
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
 }
 
 .neon-text-magenta {
-  color: #c026d3;
-  text-shadow: 0 0 4px rgba(217, 70, 239, 0.3);
+  color: #d946ef;
+  text-shadow: 0 0 8px rgba(217, 70, 239, 0.5);
 }
 
 .glass-input {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(6, 182, 212, 0.15);
-  color: #0f172a;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-input:focus {
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.08);
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
   outline: none;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(15, 23, 42, 0.8);
 }
 
 .perspective-container {
@@ -148,6 +148,6 @@ body {
 
 .hover-3d:hover {
   transform: translateY(-8px) rotateX(4deg) rotateY(-4deg);
-  box-shadow: 0 20px 40px rgba(31, 38, 135, 0.1), 
-              0 0 30px rgba(6, 182, 212, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+              0 0 30px rgba(6, 182, 212, 0.15);
 }
