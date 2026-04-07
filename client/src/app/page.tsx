@@ -3,10 +3,10 @@ import { Activity } from 'lucide-react';
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container bg-[#0f172a]">
-      {/* 3D Animated Background Elements - Dark Gray HUD */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] border border-cyan-500/10 rounded-full blur-[2px] -z-10 animate-[spin_20s_linear_infinite] [transform:rotateX(60deg)]" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] border border-magenta-500/10 rounded-full blur-[2px] -z-10 animate-[spin_30s_linear_reverse_infinite] [transform:rotateX(50deg)]" />
+    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container bg-[#000000]">
+      {/* 3D Animated Background Elements - Pure Black HUD */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] border border-cyan-500/15 rounded-full blur-[2px] -z-10 animate-[spin_20s_linear_infinite] [transform:rotateX(60deg)]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] border border-magenta-500/15 rounded-full blur-[2px] -z-10 animate-[spin_30s_linear_reverse_infinite] [transform:rotateX(50deg)]" />
 
       <div className="text-center space-y-8 holographic-panel hover-3d p-12 max-w-2xl mx-auto backdrop-blur-2xl relative z-10">
         <div className="space-y-4 flex flex-col items-center">
@@ -14,13 +14,13 @@ export default function Home() {
           <h1 className="text-6xl font-black neon-text-cyan tracking-tighter pb-2">
             Chatsy
           </h1>
-          <p className="text-xl text-slate-300 max-w-md mx-auto font-light tracking-wide">
-            Connecting stranger nodes in the dark gray data relay.
+          <p className="text-xl text-slate-400 max-w-md mx-auto font-light tracking-wide italic">
+             Relay established. Synchronizing with the void.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
-          <Link href="/chat" className="px-8 py-4 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 rounded-lg font-bold hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
+          <Link href="/chat" className="px-8 py-4 bg-cyan-500/10 text-cyan-400 border border-cyan-400/50 rounded-lg font-bold hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all uppercase tracking-widest flex items-center justify-center gap-2">
             <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping block" />
             Launch Relay
           </Link>

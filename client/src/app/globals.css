@@ -4,13 +4,13 @@
   --color-primary: #06b6d4; /* Neon Cyan */
   --color-primary-dark: #0891b2;
   --color-secondary: #d946ef; /* Neon Magenta */
-  --color-bg-dark: #0f172a; /* Slate Dark Gray */
+  --color-bg-dark: #000000; /* Pure Black */
   
   --font-sans: "Outfit", "Inter", sans-serif;
 }
 
 :root {
-  --background: #0f172a;
+  --background: #000000;
   --foreground: #ffffff;
 }
 
@@ -25,14 +25,14 @@ body {
   background-attachment: fixed;
 }
 
-/* Holographic 3D Utilities - Dark Gray */
+/* Holographic 3D Utilities - Pure Black */
 .holographic-panel {
-  background: rgba(30, 41, 59, 0.7); /* Slightly lighter than bg for elevation */
+  background: rgba(10, 10, 10, 0.7); /* Near black for depth */
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8),
               0 0 20px rgba(6, 182, 212, 0.05),
-              inset 0 0 12px rgba(255, 255, 255, 0.03);
+              inset 0 0 12px rgba(255, 255, 255, 0.02);
   border-radius: 24px;
   position: relative;
   overflow: hidden;
@@ -47,7 +47,7 @@ body {
   z-index: 10;
 }
 
-/* Scanline Effect - Subtle Dark */
+/* Scanline Effect - Subtle Black */
 .scanlines {
   position: relative;
   overflow: hidden;
@@ -58,13 +58,13 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    rgba(15, 23, 42, 0) 50%,
-    rgba(0, 0, 0, 0.15) 50%
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%
   ), linear-gradient(
     90deg,
-    rgba(255, 0, 0, 0.02),
+    rgba(255, 0, 0, 0.03),
     rgba(0, 255, 0, 0.01),
-    rgba(0, 0, 255, 0.02)
+    rgba(0, 0, 255, 0.03)
   );
   background-size: 100% 3px, 3px 100%;
   pointer-events: none;
@@ -72,14 +72,14 @@ body {
 }
 
 .holographic-panel-magenta {
-  border-color: rgba(217, 70, 239, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+  border-color: rgba(217, 70, 239, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8),
               0 0 20px rgba(217, 70, 239, 0.05),
-              inset 0 0 12px rgba(255, 255, 255, 0.03);
+              inset 0 0 12px rgba(255, 255, 255, 0.02);
 }
 
 .holographic-panel-magenta::before {
-  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.7), transparent);
 }
 
 /* Radar / Scanning Animation */
@@ -105,9 +105,9 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 100px;
   background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.1), transparent);
-  animation: scan-move 5s infinite linear;
+  animation: scan-move 4s infinite linear;
   pointer-events: none;
   z-index: 2;
 }
@@ -124,17 +124,17 @@ body {
 }
 
 .glass-input {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-input:focus {
-  border-color: rgba(6, 182, 212, 0.6);
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
   outline: none;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .perspective-container {
@@ -148,6 +148,6 @@ body {
 
 .hover-3d:hover {
   transform: translateY(-8px) rotateX(4deg) rotateY(-4deg);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
-              0 0 30px rgba(6, 182, 212, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+              0 0 30px rgba(6, 182, 212, 0.2);
 }
