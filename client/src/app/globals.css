@@ -1,23 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #8B5CF6;
-  --color-primary-dark: #7c3aed;
-  --color-bg-light: #F9FAFB;
+  --color-primary: #06b6d4; /* Neon Cyan */
+  --color-primary-dark: #0891b2;
+  --color-secondary: #d946ef; /* Neon Magenta */
+  --color-bg-dark: #05050a; /* Deep space */
   
   --font-sans: "Outfit", "Inter", sans-serif;
 }
 
 :root {
-  --background: #F9FAFB;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #05050a;
+  --foreground: #e5e7eb;
 }
 
 body {
@@ -25,16 +19,75 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   min-height: 100vh;
+  /* Deep void background with subtle radial glow */
+  background-image: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.15) 0%, rgba(5, 5, 10, 1) 50%),
+                    radial-gradient(circle at 100% 100%, rgba(217, 70, 239, 0.1) 0%, rgba(5, 5, 10, 1) 50%);
+  background-attachment: fixed;
 }
 
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.1);
+/* Holographic 3D Utilities */
+.holographic-panel {
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.1),
+              inset 0 0 20px rgba(6, 182, 212, 0.05);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
 }
 
-.dark .glassmorphism {
-  background: rgba(17, 24, 39, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.holographic-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
+}
+
+.holographic-panel-magenta {
+  border-color: rgba(217, 70, 239, 0.3);
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.1),
+              inset 0 0 20px rgba(217, 70, 239, 0.05);
+}
+
+.holographic-panel-magenta::before {
+  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.8), transparent);
+}
+
+/* Neon Text Glows */
+.neon-text-cyan {
+  color: #06b6d4;
+  text-shadow: 0 0 5px rgba(6, 182, 212, 0.5), 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+.neon-text-magenta {
+  color: #d946ef;
+  text-shadow: 0 0 5px rgba(217, 70, 239, 0.5), 0 0 10px rgba(217, 70, 239, 0.3);
+}
+
+.glass-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(6, 182, 212, 0.8);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+  outline: none;
+}
+
+.perspective-container {
+  perspective: 1000px;
+}
+
+.hover-3d {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-3d:hover {
+  transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: -5px 15px 25px rgba(6, 182, 212, 0.2);
 }
