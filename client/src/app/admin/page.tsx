@@ -40,7 +40,7 @@ export default function AdminDashboard() {
 
   return (
     <main className="min-h-screen relative flex flex-col pt-24 pb-12">
-      <div className="fixed inset-0 -z-10 bg-[#0f172a]" />
+      <div className="fixed inset-0 -z-10 bg-[#000000]" />
       <NavBar />
       
       <div className="max-w-6xl mx-auto w-full px-6 relative z-10 transition-all">

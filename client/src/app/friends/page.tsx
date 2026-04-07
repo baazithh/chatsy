@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@/lib/firebaseConfig';
 import { collection, query, onSnapshot, doc, deleteDoc, getDoc } from 'firebase/firestore';
 import { User, Trash2, MessageSquare, Clock, ShieldCheck } from 'lucide-react';
-import Link from 'link';
+import Link from 'next/link';
 
 export default function FriendsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -44,9 +44,9 @@ export default function FriendsPage() {
 
   return (
     <main className="min-h-screen relative flex flex-col pt-24 pb-12">
-      {/* HUD Background - Dark Gray */}
-      <div className="fixed inset-0 -z-10 bg-[#0f172a]" />
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.1)_0%,transparent_70%)] pointer-events-none -z-10" />
+      {/* HUD Background - Pure Black */}
+      <div className="fixed inset-0 -z-10 bg-[#000000]" />
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_50%_0%,rgba(217,70,239,0.15)_0%,transparent_70%)] pointer-events-none -z-10" />
       
       <NavBar />
 

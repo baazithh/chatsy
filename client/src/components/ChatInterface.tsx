@@ -101,14 +101,14 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
   return (
     <div className="flex flex-col h-[calc(100vh-140px)] max-w-5xl mx-auto w-full p-4 relative z-10 perspective-container">
       
-      {/* Header - Dark Gray HUD */}
-      <div className="holographic-panel p-5 flex justify-between items-center mb-4 transition-all bg-slate-900/60">
+      {/* Header - Pure Black HUD */}
+      <div className="holographic-panel p-5 flex justify-between items-center mb-4 transition-all bg-black/60">
         <div className="flex items-center gap-4">
-          <div className={`w-14 h-14 rounded-lg flex items-center justify-center border-2 ${roomId ? 'border-cyan-500 bg-cyan-500/20' : 'border-slate-700 bg-slate-800'}`}>
-            {roomId ? <UserIcon className="text-cyan-400" size={28} /> : <Cpu className="text-slate-500 animate-pulse" size={28} />}
+          <div className={`w-14 h-14 rounded-lg flex items-center justify-center border-2 ${roomId ? 'border-cyan-500 bg-cyan-500/20' : 'border-slate-800 bg-slate-900'}`}>
+            {roomId ? <UserIcon className="text-cyan-400" size={28} /> : <Cpu className="text-slate-600 animate-pulse" size={28} />}
           </div>
           <div>
-            <h2 className={`font-black text-xl uppercase tracking-widest ${roomId ? 'neon-text-cyan' : 'text-slate-500'}`}>
+            <h2 className={`font-black text-xl uppercase tracking-widest ${roomId ? 'neon-text-cyan' : 'text-slate-600'}`}>
               {roomId ? 'Stranger' : 'Searching...'}
             </h2>
             <p className="text-xs text-cyan-400/70 font-mono tracking-[0.2em] uppercase">{status}</p>
@@ -117,10 +117,10 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
         
         {roomId && (
           <div className="flex gap-3">
-            <button onClick={handleAddFriend} className="p-3 rounded-lg bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20 transition-all hover:shadow-[0_0_15px_rgba(6,182,212,0.5)]" title="Add Friend">
+            <button onClick={handleAddFriend} className="p-3 rounded-lg bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20 transition-all hover:shadow-[0_0_15px_rgba(6,182,212,0.6)]" title="Add Friend">
               <UserPlus size={20} />
             </button>
-            <button className="p-3 rounded-lg bg-magenta-900/40 border border-magenta-500/50 text-magenta-400 hover:bg-magenta-500/20 transition-all hover:shadow-[0_0_15px_rgba(217,70,239,0.5)]" title="Report/Block">
+            <button className="p-3 rounded-lg bg-magenta-900/40 border border-magenta-500/50 text-magenta-400 hover:bg-magenta-500/20 transition-all hover:shadow-[0_0_15px_rgba(217,70,239,0.6)]" title="Report/Block">
               <ShieldAlert size={20} />
             </button>
             <button onClick={handleSkip} className="px-6 py-2 bg-transparent border-2 border-red-500/50 hover:border-red-500 hover:bg-red-500/20 text-red-500 rounded-lg flex items-center gap-2 font-black tracking-widest uppercase transition-all" title="Skip">
@@ -131,9 +131,9 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
         )}
       </div>
 
-      {/* Messages - Dark Frosted */}
-      <div className="flex-1 holographic-panel mb-4 p-6 overflow-y-auto flex flex-col gap-5 relative bg-slate-900/40 scanlines">
-        <div className="scanner-line opacity-30" />
+      {/* Messages - Pure Black Frosted */}
+      <div className="flex-1 holographic-panel mb-4 p-6 overflow-y-auto flex flex-col gap-5 relative bg-black/40 scanlines">
+        <div className="scanner-line opacity-40" />
         
         {!roomId && (
           <div className="absolute inset-0 flex items-center justify-center -z-0 pointer-events-none overflow-hidden">
@@ -155,8 +155,9 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
                animate={{ opacity: 1, y: 0 }}
                className="w-full flex justify-center my-6"
              >
-                <div className="px-6 py-1.5 border-x border-magenta-500/40 text-magenta-400 text-[10px] font-black uppercase tracking-[0.4em] bg-magenta-950/20 rounded-lg">
-                  {msg.text}
+                <div className="px-6 py-1.5 border-x border-magenta-500/50 text-magenta-400 text-[10px] font-black uppercase tracking-[0.4em] bg-magenta-950/30 rounded-lg relative">
+                   <div className="absolute inset-0 bg-magenta-500/5 animate-pulse rounded-lg" />
+                   {msg.text}
                 </div>
              </motion.div>
            ) : (
@@ -164,35 +165,35 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
               key={idx}
               initial={{ opacity: 0, x: msg.isMe ? 20 : -20, scale: 0.98 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              className={`max-w-[75%] p-4 rounded-2xl text-sm tracking-wide shadow-xl border relative group transition-all
+              className={`max-w-[75%] p-4 rounded-2xl text-sm tracking-wide shadow-2xl border relative group transition-all
                 ${msg.isMe 
-                  ? 'bg-cyan-500/10 border-cyan-500/30 text-white self-end rounded-tr-none' 
-                  : 'bg-slate-800/60 border-slate-700 text-white self-start rounded-tl-none'}`}
+                  ? 'bg-cyan-500/10 border-cyan-500/40 text-white self-end rounded-tr-none' 
+                  : 'bg-slate-900 border-slate-800 text-white self-start rounded-tl-none'}`}
             >
               <div className="relative z-10">{msg.text}</div>
               {/* Subtle bubble corner accent */}
-              <div className={`absolute top-0 ${msg.isMe ? 'right-0' : 'left-0'} w-2 h-2 ${msg.isMe ? 'bg-cyan-400' : 'bg-slate-500'} opacity-20`} />
+              <div className={`absolute top-0 ${msg.isMe ? 'right-0' : 'left-0'} w-2 h-2 ${msg.isMe ? 'bg-cyan-500' : 'bg-slate-700'} opacity-30`} />
             </motion.div>
            )
         ))}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input - Dark Frosted */}
+      {/* Input - Pure Black Frosted */}
       <form onSubmit={sendMessage} className="relative mt-auto">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400/50 font-mono text-xl">{'>'}</div>
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-500/50 font-mono text-xl">{'>'}</div>
         <input 
           type="text" 
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={!roomId}
           placeholder={roomId ? "Type a message..." : "Awaiting signal parity..."}
-          className="w-full holographic-panel glass-input rounded-xl pl-10 pr-20 py-5 focus:outline-none focus:ring-0 disabled:opacity-50 text-white placeholder:text-slate-600 tracking-widest uppercase font-mono text-sm"
+          className="w-full holographic-panel glass-input rounded-xl pl-10 pr-20 py-5 focus:outline-none focus:ring-0 disabled:opacity-50 text-white placeholder:text-slate-700 tracking-widest uppercase font-mono text-sm"
         />
         <button 
           type="submit"
           disabled={!roomId || !input.trim()}
-          className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-lg disabled:opacity-50 hover:bg-cyan-500 hover:text-slate-900 transition-all font-bold"
+          className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-lg disabled:opacity-50 hover:bg-cyan-500 hover:text-slate-900 transition-all font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]"
         >
           <Send size={18} />
         </button>
