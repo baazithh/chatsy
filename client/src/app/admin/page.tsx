@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { Activity, Users, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function AdminDashboard() {
   const { user, loading: authLoading } = useAuth();

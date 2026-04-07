@@ -149,22 +149,31 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
         
         {messages.map((msg, idx) => (
            msg.type === 'system' ? (
-             <div key={idx} className="w-full flex justify-center my-4">
-                <span className="px-4 py-1 border border-magenta-500/30 text-magenta-400 text-xs font-bold uppercase tracking-[0.3em] bg-magenta-950/50 rounded-sm">
+             <motion.div 
+               key={idx} 
+               initial={{ opacity: 0, y: 10 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="w-full flex justify-center my-6"
+             >
+                <div className="px-6 py-1.5 border-x border-magenta-500/30 text-magenta-400 text-[10px] font-black uppercase tracking-[0.4em] bg-magenta-950/20 rounded-lg relative">
+                  <div className="absolute inset-0 bg-magenta-500/5 animate-pulse rounded-lg" />
                   {msg.text}
-                </span>
-             </div>
+                </div>
+             </motion.div>
            ) : (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className={`max-w-[80%] p-4 rounded-lg text-sm tracking-wide shadow-lg border backdrop-blur-md
+              initial={{ opacity: 0, x: msg.isMe ? 20 : -20, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              className={`max-w-[75%] p-4 rounded-2xl text-sm tracking-wide shadow-2xl border backdrop-blur-xl relative group
                 ${msg.isMe 
-                  ? 'bg-cyan-900/20 border-cyan-500/50 text-cyan-50 self-end [box-shadow:-5px_5px_0_rgba(6,182,212,0.2)] rounded-tr-none' 
-                  : 'bg-magenta-900/20 border-magenta-500/50 text-magenta-50 self-start [box-shadow:5px_5px_0_rgba(217,70,239,0.2)] rounded-tl-none'}`}
+                  ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-50 self-end rounded-tr-none shadow-cyan-900/20' 
+                  : 'bg-magenta-500/10 border-magenta-500/40 text-magenta-50 self-start rounded-tl-none shadow-magenta-900/20'}`}
             >
-              {msg.text}
+              <div className="relative z-10">{msg.text}</div>
+              {/* Subtle bubble corner accent */}
+              <div className={`absolute top-0 ${msg.isMe ? 'right-0' : 'left-0'} w-2 h-2 ${msg.isMe ? 'bg-cyan-400' : 'bg-magenta-400'} opacity-40`} />
+              <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_5s_infinite_linear] pointer-events-none" />
             </motion.div>
            )
         ))}
