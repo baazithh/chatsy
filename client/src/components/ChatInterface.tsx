@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { Send, User as UserIcon, SkipForward, UserPlus, ShieldAlert } from 'lucide-react';
+import { Send, User as UserIcon, SkipForward, UserPlus, ShieldAlert, Cpu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { db } from '@/lib/firebaseConfig';
@@ -12,7 +12,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [input, setInput] = useState('');
-  const [status, setStatus] = useState('Finding a match...');
+  const [status, setStatus] = useState('SCANNING FREQUENCIES...');
   const [roomId, setRoomId] = useState<string | null>(null);
   const [peerUid, setPeerUid] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     newSocket.on('match_found', (data) => {
       setRoomId(data.roomId);
       setPeerUid(data.peerUid || null);
-      setStatus('Matched with a stranger');
+      setStatus('CONNECTION SECURED');
       setMessages([]); 
     });
 
@@ -37,10 +37,10 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     });
 
     newSocket.on('peer_disconnected', () => {
-      setStatus('Stranger disconnected. Finding new match...');
+      setStatus('CONNECTION LOST. RE-SCANNING...');
       setRoomId(null);
       setPeerUid(null);
-      setMessages((prev) => [...prev, { type: 'system', text: 'Stranger left.' }]);
+      setMessages((prev) => [...prev, { type: 'system', text: 'PEER DISCONNECTED' }]);
       setTimeout(() => {
         newSocket.emit('join_queue', { interests, uid: user?.uid });
       }, 1000);
@@ -68,7 +68,7 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
   const handleSkip = () => {
     if (!socket) return;
     socket.emit('skip');
-    setStatus('Finding a new match...');
+    setStatus('SCANNING FREQUENCIES...');
     setRoomId(null);
     setPeerUid(null);
     setMessages([]);
@@ -77,55 +77,54 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
 
   const handleAddFriend = async () => {
     if (!user) {
-      alert("You must be logged in to save friends!");
+      alert("WARNING: LOCAL IDENTITY REQUIRED FOR SAVING CONNECTIONS.");
       return;
     }
     if (!peerUid) {
-      alert("Stranger is using a guest account and cannot be added as a permanent friend.");
+      alert("WARNING: PEER IS A GUEST PROTOCOL. CANNOT SAVE.");
       return;
     }
 
     try {
-      // Save friend record for the current user
       const friendRef = doc(collection(db, 'users', user.uid, 'friends'), peerUid);
       await setDoc(friendRef, { 
         addedAt: serverTimestamp(),
         peerUid: peerUid,
         roomId: roomId
       });
-      alert("Friend saved to your network!");
+      alert("NODE SAVED TO NETWORK.");
     } catch (err) {
-      console.error(err);
-      alert("Failed to save friend.");
+      alert("ERROR: FAILED TO SAVE NODE.");
     }
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-80px)] max-w-4xl mx-auto w-full p-4 relative z-10">
+    <div className="flex flex-col h-[calc(100vh-140px)] max-w-5xl mx-auto w-full p-4 relative z-10 perspective-container">
+      
       {/* Header */}
-      <div className="glassmorphism rounded-t-2xl p-4 flex justify-between items-center mb-2 border border-white/40 dark:border-white/10 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center border border-violet-200 dark:border-violet-800">
-            <UserIcon className="text-violet-500 dark:text-violet-300" />
+      <div className="holographic-panel p-5 flex justify-between items-center mb-4 transition-all">
+        <div className="flex items-center gap-4">
+          <div className={`w-14 h-14 rounded-lg flex items-center justify-center border-2 ${roomId ? 'border-cyan-500 bg-cyan-500/20' : 'border-gray-600 bg-gray-800'}`}>
+            {roomId ? <UserIcon className="text-cyan-400" size={28} /> : <Cpu className="text-gray-400 animate-pulse" size={28} />}
           </div>
           <div>
-            <h2 className="font-bold text-lg text-gray-900 dark:text-gray-100">
-              {status.includes('Matched') ? 'Stranger' : 'Searching...'}
+            <h2 className={`font-black text-xl uppercase tracking-widest ${roomId ? 'neon-text-cyan' : 'text-gray-400'}`}>
+              {roomId ? 'TARGET ACQUIRED' : 'SIGNAL SEARCH'}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{status}</p>
+            <p className="text-xs text-cyan-500/70 uppercase tracking-[0.2em]">{status}</p>
           </div>
         </div>
         
         {roomId && (
-          <div className="flex gap-2">
-            <button onClick={handleAddFriend} className="p-3 rounded-full bg-white dark:bg-gray-800 hover:bg-violet-50 dark:hover:bg-violet-900/50 text-violet-600 transition-colors shadow-sm border border-gray-200 dark:border-gray-700" title="Add Friend">
+          <div className="flex gap-3">
+            <button onClick={handleAddFriend} className="p-3 rounded-lg bg-cyan-900/40 border border-cyan-500/50 hover:bg-cyan-500/20 text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all" title="Save Node">
               <UserPlus size={20} />
             </button>
-            <button className="p-3 rounded-full bg-white dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-900/50 text-red-500 transition-colors shadow-sm border border-gray-200 dark:border-gray-700" title="Report/Block">
+            <button className="p-3 rounded-lg bg-magenta-900/40 border border-magenta-500/50 hover:bg-magenta-500/20 text-magenta-400 hover:shadow-[0_0_15px_rgba(217,70,239,0.6)] transition-all" title="Terminate Node">
               <ShieldAlert size={20} />
             </button>
-            <button onClick={handleSkip} className="px-5 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-full flex items-center gap-2 font-bold transition-colors shadow-sm border border-gray-200 dark:border-gray-700" title="Skip">
-               Skip
+            <button onClick={handleSkip} className="px-6 py-2 bg-transparent border-2 border-red-500/50 hover:border-red-500 hover:bg-red-500/20 text-red-500 rounded-lg flex items-center gap-2 font-black tracking-widest uppercase transition-all" title="Skip">
+               JUMP
                <SkipForward size={18} />
             </button>
           </div>
@@ -133,18 +132,29 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
       </div>
 
       {/* Messages */}
-      <div className="flex-1 glassmorphism rounded-b-2xl mb-4 p-4 overflow-y-auto flex flex-col gap-4 border border-white/40 dark:border-white/10 shadow-sm">
+      <div className="flex-1 holographic-panel mb-4 p-6 overflow-y-auto flex flex-col gap-5 relative">
+        {!roomId && (
+          <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-10 pointer-events-none">
+             <Activity className="w-64 h-64 text-cyan-500 animate-pulse" />
+          </div>
+        )}
+        
         {messages.map((msg, idx) => (
            msg.type === 'system' ? (
-             <div key={idx} className="text-center text-xs font-medium text-gray-400 my-2 uppercase tracking-wide">
-               {msg.text}
+             <div key={idx} className="w-full flex justify-center my-4">
+                <span className="px-4 py-1 border border-magenta-500/30 text-magenta-400 text-xs font-bold uppercase tracking-[0.3em] bg-magenta-950/50 rounded-sm">
+                  {msg.text}
+                </span>
              </div>
            ) : (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`max-w-[75%] rounded-2xl p-4 shadow-sm text-[15px] ${msg.isMe ? 'bg-primary text-white self-end rounded-tr-sm' : 'bg-white dark:bg-gray-800 dark:text-gray-100 self-start rounded-tl-sm border border-gray-100 dark:border-gray-700'}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className={`max-w-[80%] p-4 rounded-lg text-sm tracking-wide shadow-lg border backdrop-blur-md
+                ${msg.isMe 
+                  ? 'bg-cyan-900/20 border-cyan-500/50 text-cyan-50 self-end [box-shadow:-5px_5px_0_rgba(6,182,212,0.2)] rounded-tr-none' 
+                  : 'bg-magenta-900/20 border-magenta-500/50 text-magenta-50 self-start [box-shadow:5px_5px_0_rgba(217,70,239,0.2)] rounded-tl-none'}`}
             >
               {msg.text}
             </motion.div>
@@ -155,18 +165,19 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
 
       {/* Input */}
       <form onSubmit={sendMessage} className="relative mt-auto">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-500/50 font-mono text-xl">{'>'}</div>
         <input 
           type="text" 
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={!roomId}
-          placeholder={roomId ? "Type a message..." : "Waiting for match..."}
-          className="w-full glassmorphism rounded-full px-6 py-4 pr-16 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 border border-white/40 dark:border-white/10 shadow-sm transition-all text-[15px]"
+          placeholder={roomId ? "TRANSMIT DATA..." : "WAITING FOR UPLINK..."}
+          className="w-full holographic-panel glass-input rounded-xl pl-10 pr-20 py-5 focus:outline-none focus:ring-0 disabled:opacity-50 text-cyan-100 placeholder:text-cyan-800 tracking-widest uppercase font-mono text-sm"
         />
         <button 
           type="submit"
           disabled={!roomId || !input.trim()}
-          className="absolute right-2 top-2 p-3 bg-primary text-white rounded-full disabled:opacity-50 hover:bg-primary-dark transition-all shadow-md hover:shadow-lg disabled:hover:shadow-none"
+          className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-lg disabled:opacity-50 hover:bg-cyan-500 hover:text-gray-900 transition-all font-bold"
         >
           <Send size={18} />
         </button>
@@ -174,3 +185,5 @@ export default function ChatInterface({ interests = [] }: { interests?: string[]
     </div>
   );
 }
+// Add Activity import manually to fix potential bug
+import { Activity } from 'lucide-react';

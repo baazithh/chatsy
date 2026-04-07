@@ -27,49 +27,68 @@ export default function AuthPage() {
   };
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6">
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-violet-50 dark:from-gray-950 dark:to-indigo-950 -z-10" />
-      
-      <div className="glassmorphism p-12 rounded-3xl max-w-md w-full shadow-2xl relative z-10 border border-white/40 dark:border-white/10">
-        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-fuchsia-600 mb-8 text-center">
-          {isLogin ? 'Welcome Back' : 'Create Account'}
+    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container">
+      <div className="text-cyan-500/20 absolute top-10 pointer-events-none font-mono text-xs text-center w-full">
+         <p>SECURE TERMINAL CONNECTION</p>
+         <p>ENCRYPTION: AES-256 ACTIVE</p>
+      </div>
+
+      <div className="holographic-panel hover-3d p-12 max-w-md w-full relative z-10 border border-cyan-500/30">
+        <div className="flex justify-center mb-6">
+           <div className="w-16 h-16 border-2 border-cyan-400 rounded-lg flex items-center justify-center rotate-45">
+             <div className="w-8 h-8 bg-cyan-400 animate-pulse pointer-events-none" />
+           </div>
+        </div>
+
+        <h1 className="text-3xl font-black neon-text-cyan mb-8 text-center uppercase tracking-widest">
+          {isLogin ? 'AUTHORIZE ACCESS' : 'ESTABLISH LINK'}
         </h1>
         
-        <form onSubmit={handleAuth} className="flex flex-col gap-4">
-          <input 
-            type="email" 
-            placeholder="Email Address" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 focus:ring-2 focus:ring-primary outline-none transition-all"
-            required
-          />
-          <input 
-            type="password" 
-            placeholder="Password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 focus:ring-2 focus:ring-primary outline-none transition-all"
-            required
-          />
+        <form onSubmit={handleAuth} className="flex flex-col gap-6">
+          <div>
+            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">IDENTIFIER_KEY</label>
+            <input 
+              type="email" 
+              placeholder="operator@sys.com" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-4 holographic-panel glass-input font-mono text-sm uppercase"
+              required
+            />
+          </div>
+          <div>
+            <label className="text-cyan-500/80 font-mono text-xs uppercase tracking-widest block mb-2">SECURITY_PHRASE</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-4 holographic-panel glass-input tracking-widest"
+              required
+            />
+          </div>
           
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {error && (
+             <div className="p-3 border border-red-500/50 bg-red-900/30 text-red-400 font-mono text-xs uppercase">
+                ERROR: {error}
+             </div>
+          )}
           
           <button 
             type="submit" 
-            className="mt-4 px-8 py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+            className="mt-4 w-full py-4 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 rounded-lg font-bold hover:bg-cyan-500/40 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all uppercase tracking-widest"
           >
-            {isLogin ? 'Sign In' : 'Sign Up'}
+            {isLogin ? 'EXECUTE LOGIN' : 'CREATE NODE'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-600 dark:text-gray-400">
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
+        <p className="mt-8 text-center text-gray-500 font-mono text-xs uppercase">
+          {isLogin ? "NO ACCESS CODE? " : "EXISTING OPERATOR? "}
           <button 
             onClick={() => setIsLogin(!isLogin)} 
-            className="text-primary font-semibold hover:underline"
+            className="text-cyan-400 hover:neon-text-cyan font-bold"
           >
-            {isLogin ? 'Sign Up' : 'Sign In'}
+            {isLogin ? 'REGISTER HERE' : 'LOGIN HERE'}
           </button>
         </p>
       </div>

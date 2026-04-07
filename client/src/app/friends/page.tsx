@@ -35,7 +35,7 @@ export default function FriendsPage() {
             snap.docs.map(async (f) => {
               const fData = f.data();
               const peerDoc = await getDoc(doc(db, 'users', fData.peerUid));
-              let displayName = 'Stranger';
+              let displayName = 'ANONYMOUS_NODE';
               if (peerDoc.exists() && peerDoc.data().displayName) {
                 displayName = peerDoc.data().displayName;
               }
@@ -57,39 +57,42 @@ export default function FriendsPage() {
   if (authLoading || !user) return null;
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-violet-50 dark:from-gray-950 dark:to-indigo-950 -z-10" />
+    <main className="min-h-screen relative overflow-hidden flex flex-col perspective-container">
       <NavBar />
       <div className="max-w-4xl mx-auto w-full p-6 relative z-10">
-        <h1 className="text-3xl font-bold mb-6">Your Friends</h1>
-        <div className="glassmorphism p-8 rounded-2xl min-h-[300px]">
+        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">SAVED CONNECTIONS</h1>
+        
+        <div className="holographic-panel hover-3d p-8 min-h-[400px] border border-cyan-500/20 shadow-lg">
           {loading ? (
-            <p className="text-gray-500 text-center mt-10 animate-pulse font-medium">Loading connections...</p>
+            <div className="flex flex-col items-center justify-center h-full pt-10 text-cyan-500/70 space-y-4">
+              <div className="w-12 h-12 border-2 border-dashed border-cyan-500 rounded-full animate-spin" />
+              <p className="font-mono text-sm tracking-widest uppercase">FETCHING NETWORK TOPOLOGY...</p>
+            </div>
           ) : friends.length === 0 ? (
-            <div className="text-center mt-10">
-              <p className="text-gray-600 dark:text-gray-300 text-lg">You haven't added any friends yet.</p>
+            <div className="text-center mt-16">
+              <p className="text-cyan-500/80 font-mono text-lg uppercase tracking-widest">NETWORK IS EMPTY</p>
               <button 
                 onClick={() => router.push('/chat')}
-                className="mt-6 px-8 py-3 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-md hover:-translate-y-1"
+                className="mt-8 px-8 py-4 bg-cyan-500/10 border border-cyan-500/50 text-cyan-400 font-bold uppercase tracking-widest hover:bg-cyan-500/30 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]"
               >
-                Start Matching
+                INITIATE NEW SCAN
               </button>
             </div>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {friends.map((friend) => (
-                <div key={friend.id} className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 flex justify-between items-center shadow-sm hover:shadow-md transition-all">
-                  <div className="flex items-center gap-4">
-                     <div className="w-12 h-12 rounded-full bg-violet-200 dark:bg-violet-900 flex items-center justify-center text-violet-600 dark:text-violet-300 font-bold text-lg border border-violet-300 dark:border-violet-700">
-                        {friend.displayName.charAt(0).toUpperCase()}
+                <div key={friend.id} className="p-5 holographic-panel border border-cyan-500/30 bg-cyan-950/20 flex justify-between items-center transition-all hover:bg-cyan-900/30 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] group cursor-default">
+                  <div className="flex items-center gap-6">
+                     <div className="w-14 h-14 bg-cyan-500/10 border-2 border-cyan-500/50 flex items-center justify-center text-cyan-400 font-black text-xl rounded-none transform rotate-45 group-hover:bg-cyan-500/30 transition-colors">
+                        <span className="-rotate-45">{friend.displayName.charAt(0).toUpperCase()}</span>
                      </div>
                      <div>
-                       <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">{friend.displayName}</h3>
-                       <p className="text-xs text-gray-500">Connected via Matcher</p>
+                       <h3 className="font-bold text-lg text-cyan-50 tracking-widest uppercase">{friend.displayName}</h3>
+                       <p className="text-xs text-cyan-500/80 font-mono mt-1">LINK ESTABLISHED</p>
                      </div>
                   </div>
-                  <button className="px-5 py-2 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-full font-bold transition-colors text-sm shadow-sm border border-gray-200 dark:border-gray-600">
-                    Message
+                  <button className="px-6 py-3 bg-transparent border border-cyan-500/50 text-cyan-400 uppercase font-mono text-xs tracking-[0.2em] hover:bg-cyan-500/20 transition-all">
+                    PULL DATA
                   </button>
                 </div>
               ))}

@@ -59,28 +59,28 @@ export default function ProfilePage() {
   if (authLoading || !user) return null;
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-violet-50 dark:from-gray-950 dark:to-indigo-950 -z-10" />
+    <main className="min-h-screen relative overflow-hidden flex flex-col perspective-container">
       <NavBar />
       
-      <div className="max-w-4xl mx-auto w-full p-6 relative z-10">
-        <h1 className="text-3xl font-bold mb-6">Your Profile</h1>
-        <div className="glassmorphism p-8 rounded-2xl space-y-6">
+      <div className="max-w-4xl mx-auto w-full p-6 relative z-10 hover-3d">
+        <h1 className="text-3xl font-black neon-text-cyan mb-8 uppercase tracking-widest pl-2 border-l-4 border-cyan-500">OPERATOR IDENTITY</h1>
+        
+        <div className="holographic-panel p-8 space-y-8 border border-cyan-500/20">
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Display Name</label>
+            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">Public Handle</label>
             <input 
               type="text" 
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 focus:ring-2 focus:ring-primary outline-none"
-              placeholder="How others see you"
+              className="w-full p-4 holographic-panel glass-input font-bold tracking-wider"
+              placeholder="SYSTEM_ALIAS"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Interests</label>
-            <div className="flex gap-2 mb-3">
+            <label className="block text-xs font-mono font-bold text-cyan-400 mb-3 border-b border-cyan-500/20 pb-2 tracking-widest uppercase">MATCHING DIRECTIVES (INTERESTS)</label>
+            <div className="flex gap-4 mb-4">
               <input 
                 type="text"
                 value={newInterest}
@@ -91,34 +91,36 @@ export default function ProfilePage() {
                     addInterest();
                   }
                 }}
-                className="flex-1 p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 focus:ring-2 focus:ring-primary outline-none"
-                placeholder="e.g. music, anime, programming..."
+                className="flex-1 p-3 holographic-panel glass-input uppercase font-mono text-sm tracking-widest"
+                placeholder="ADD DIRECTIVE..."
               />
               <button 
                 onClick={addInterest}
-                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
+                className="px-8 py-3 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-gray-900 transition-all uppercase"
               >
-                Add
+                COMPILE
               </button>
             </div>
             
-            <div className="flex flex-wrap gap-2 mt-4">
+            <div className="flex flex-wrap gap-3 mt-6">
               {interests.map(i => (
-                <span key={i} className="px-3 py-1 bg-violet-100 text-violet-800 dark:bg-violet-900/50 dark:text-violet-200 rounded-full text-sm flex items-center gap-2 border border-violet-200 dark:border-violet-800">
-                  {i}
-                  <button onClick={() => removeInterest(i)} className="hover:text-red-500 font-bold">&times;</button>
+                <span key={i} className="px-4 py-2 bg-cyan-900/30 text-cyan-50 font-mono text-xs uppercase tracking-widest border border-cyan-500/40 rounded-sm flex items-center gap-3">
+                  __{i}
+                  <button onClick={() => removeInterest(i)} className="text-cyan-400 hover:text-magenta-400 font-bold">&times;</button>
                 </span>
               ))}
             </div>
           </div>
 
-          <button 
-            onClick={handleSave}
-            disabled={saving}
-            className="w-full py-4 mt-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-primary-dark transition-all disabled:opacity-50 disabled:hover:translate-y-0"
-          >
-            {saving ? 'Saving...' : 'Save Profile'}
-          </button>
+          <div className="pt-6">
+            <button 
+              onClick={handleSave}
+              disabled={saving}
+              className="w-full py-5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 font-black tracking-[0.2em] uppercase hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all disabled:opacity-50"
+            >
+              {saving ? 'UPLOADING TO MAINFRAME...' : 'COMMIT CHANGES'}
+            </button>
+          </div>
 
         </div>
       </div>
