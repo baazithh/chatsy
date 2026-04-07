@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { auth } from '@/lib/firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import NavBar from '@/components/NavBar';
+import { ShieldCheck, Activity } from 'lucide-react';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -27,11 +29,17 @@ export default function AuthPage() {
   };
 
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container">
-      <div className="holographic-panel hover-3d p-12 max-w-md w-full relative z-10 border border-cyan-500/30">
-        <div className="flex justify-center mb-6">
-           <div className="w-16 h-16 border-2 border-cyan-400 rounded-lg flex items-center justify-center rotate-45">
-             <div className="w-8 h-8 bg-cyan-400 animate-pulse pointer-events-none" />
+    <main className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-6 perspective-container bg-black">
+      {/* HUD Background Elements - Pure Black */}
+      <div className="fixed inset-0 pointer-events-none -z-10 bg-[#000000]" />
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.15)_0%,transparent_70%)] pointer-events-none -z-10" />
+      
+      <NavBar />
+
+      <div className="holographic-panel hover-3d p-12 max-w-md w-full relative z-10 border border-cyan-500/30 bg-black/60 shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+        <div className="flex justify-center mb-10">
+           <div className="w-20 h-20 border-2 border-cyan-400 rounded-xl flex items-center justify-center -rotate-12 transition-transform hover:rotate-0">
+              <Activity className="text-cyan-400 w-10 h-10 animate-pulse" />
            </div>
         </div>
 
@@ -77,11 +85,11 @@ export default function AuthPage() {
           </button>
         </form>
 
-        <p className="mt-8 text-center text-gray-500 font-mono text-xs uppercase">
+        <p className="mt-8 text-center text-slate-500 font-mono text-xs uppercase">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button 
             onClick={() => setIsLogin(!isLogin)} 
-            className="text-cyan-400 hover:neon-text-cyan font-bold"
+            className="text-cyan-400 hover:text-white font-bold transition-colors"
           >
             {isLogin ? 'Register Here' : 'Login Here'}
           </button>
